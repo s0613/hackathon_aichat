@@ -1,0 +1,7 @@
+### post요청
+POST http://localhost:8080/api/generate-text2
+Content-Type: application/json
+
+{
+  "response" : "사장님이 내 엉덩이를 만졌다"
+}

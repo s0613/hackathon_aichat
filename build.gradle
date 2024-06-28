@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.1'
+    id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'org.hackthon'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+}
+
+ext {
+    set('springAiVersion', "1.0.0-M1")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'dev.langchain4j:langchain4j-open-ai:0.30.0'
+    implementation 'dev.langchain4j:langchain4j:0.30.0'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.json:json:20220924'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
